@@ -5,6 +5,8 @@
 
 This Terraform configuration sets up cross-region S3 bucket replication between two buckets. The configuration includes necessary IAM roles and replication rules.
 
+video: [AWS S3 Bucket Replication with Terraform](https://youtu.be/Qat0sytI6Bc)
+
 ## Prerequisites
 
 - AWS CLI configured with appropriate credentials
