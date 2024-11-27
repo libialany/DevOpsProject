@@ -3,11 +3,12 @@ import os
 
 import aws_cdk as cdk
 
-from hello_lambda.hello_lambda_stack import HelloLambdaStack
+from lambda_cdk.lambda_cdk_stack import LambdaCdkStack
 
 
 app = cdk.App()
-HelloLambdaStack(app, "HelloLambdaStack",
+LambdaCdkStack(app, "LambdaCdkStack",
+    env=cdk.Environment(account=os.getenv('CDK_DEFAULT_ACCOUNT'), region=os.getenv('CDK_DEFAULT_REGION')),    
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
@@ -20,9 +21,11 @@ HelloLambdaStack(app, "HelloLambdaStack",
     # Uncomment the next line if you know exactly what Account and Region you
     # want to deploy the stack to. */
 
-    #env=cdk.Environment(account='123456789012', region='us-east-1'),
+    #env=cdk.Environment(account='123', region='us-east-1'),
 
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+    # 580014340847
+    # us-east-1
     )
 
 app.synth()
