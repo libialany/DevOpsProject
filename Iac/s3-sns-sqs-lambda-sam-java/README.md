@@ -1,6 +1,6 @@
 ## Description
 
-> NOTE: I did change a little from the original source, in the last section you can see the author and small note 😅
+> **Note:** Some modification have been made to the original source. Please refer to the last section for the author's information and additional remarks.
 
 ## S3 - SNS - SQS - Lambda
 
