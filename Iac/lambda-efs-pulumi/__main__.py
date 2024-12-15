@@ -97,7 +97,7 @@ sudo yum install -y amazon-efs-utils
 sudo mkdir /mnt/efs
 sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport {0}:/ /mnt/efs
 date "+%Y-%m-%d %H:%M:%S" > datetime.txt
-cp datetime.txt /mnt/efs
+sudo cp datetime.txt /mnt/efs
 """.format(efs.dns_name)
 
 # Step 9: EC2 Instance with EFS Mounting via User Data
@@ -116,7 +116,7 @@ ec2_with_efs = aws.ec2.Instance("ec2-with-efs",
 access_point_for_lambda = aws.efs.AccessPoint("access_point_for_lambda",
     file_system_id=efs.id,
     root_directory={
-        "path": "/lambda",
+        "path": "/mnt/efs",
         "creation_info": {
             "owner_gid": 1000,
             "owner_uid": 1000,
