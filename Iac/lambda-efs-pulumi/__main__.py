@@ -154,19 +154,19 @@ efs_policy_attachment = aws.iam.RolePolicyAttachment("le-efs-policy-attachment",
 )
 
 # A lambda function connected to an EFS file system
-efs_lambda = aws.lambda_.Function("lambda_efs",
-    runtime="python3.13",
-    role=lambda_role.arn,
-    handler="index.handler",  # Assuming you have index.py with a handler method
-    code=pulumi.FileArchive("lambda_function_payload.zip"),
-    file_system_config={
-        "arn": access_point_for_lambda.arn,
-        "local_mount_path": "/mnt/efs",
-    },
-    vpc_config={
-        "subnet_ids": [subnet1.id],
-        "security_group_ids": [security_group.id,efs_security_group.id],
-    })
+# efs_lambda = aws.lambda_.Function("lambda_efs",
+#     runtime="python3.13",
+#     role=lambda_role.arn,
+#     handler="index.handler",  # Assuming you have index.py with a handler method
+#     code=pulumi.FileArchive("lambda_function_payload.zip"),
+#     file_system_config={
+#         "arn": access_point_for_lambda.arn,
+#         "local_mount_path": "/mnt/efs",
+#     },
+#     vpc_config={
+#         "subnet_ids": [subnet1.id],
+#         "security_group_ids": [security_group.id,efs_security_group.id],
+#     })
 # Outputs
 pulumi.export("vpc_id", vpc.id)
 pulumi.export("efs dns name", efs.dns_name)
@@ -174,6 +174,6 @@ pulumi.export("ec2_instance_id", ec2_with_efs.id)
 pulumi.export("ec2_instance public ip", ec2_with_efs.public_ip)
 pulumi.export("efs_id", efs.id)
 pulumi.export("access_point_id", access_point_for_lambda.arn)
-pulumi.export("lambda_id", efs_lambda.id)
+# pulumi.export("lambda_id", efs_lambda.id)
 print(f"comand to efs mount: sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport {efs.dns_name}:/ efs")
 
