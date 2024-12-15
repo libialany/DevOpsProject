@@ -116,7 +116,7 @@ ec2_with_efs = aws.ec2.Instance("ec2-with-efs",
 access_point_for_lambda = aws.efs.AccessPoint("access_point_for_lambda",
     file_system_id=efs.id,
     root_directory={
-        "path": "/mnt/efs",
+        "path": "/",
         "creation_info": {
             "owner_gid": 1000,
             "owner_uid": 1000,
