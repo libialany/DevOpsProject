@@ -95,7 +95,10 @@ mount_efs_script = """
 #!/bin/bash
 sudo yum install -y amazon-efs-utils
 sudo mkdir /mnt/efs
-"""
+sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport {0}:/ /mnt/efs
+date "+%Y-%m-%d %H:%M:%S" > datetime.txt
+cp datetime.txt /mnt/efs
+""".format(efs.dns_name)
 
 # Step 9: EC2 Instance with EFS Mounting via User Data
 ec2_with_efs = aws.ec2.Instance("ec2-with-efs",
@@ -165,7 +168,9 @@ efs_lambda = aws.lambda_.Function("lambda_efs",
     vpc_config={
         "subnet_ids": [subnet1.id],
         "security_group_ids": [security_group.id,efs_security_group.id],
-    })
+    },
+    opts = pulumi.ResourceOptions(depends_on=[mount_target])
+    )
 # Outputs
 pulumi.export("vpc_id", vpc.id)
 pulumi.export("efs dns name", efs.dns_name)
