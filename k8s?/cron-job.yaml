@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: kube-log-exporter-cron
+spec:
+  schedule: '0 * * * *'
+  jobTemplate:
+    spec:
+      completions: 1
+      template:
+        spec:
+          serviceAccountName: log-exporter-sa
+          containers:
+            - name: kube-log-exporter
+              image: docker.admantium.com/kube-log-exporter:0.1.9.12
+              volumeMounts:
+                - name: log-exporter-volume
+                  mountPath: /etc/kube-log-exporter/logs
+          restartPolicy: Never
+          volumes:
+            - name: log-exporter-volume
+              persistentVolumeClaim:
+                claimName: log-exporter-pvc
+----
+kind: PersistentVolumeClaim
+metadata:
+  name: log-exporter-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
