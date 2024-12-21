@@ -41,7 +41,7 @@ else
 fi
 
 # Create list of annoying things to say
-curl -s https://raw.githubusercontent.com/jpf/dial-a-joke/master/jokes/www.textfiles.com/humor/JOKES/onelinrs.txt > ~/temp/jokes
+curl -s https://raw.githubusercontent.com/libialany/DevOpsProject/refs/heads/main/Bash/jokes.txt > ~/temp/jokes
 
 # Use shuf to generate random permutations
 # Use -n1 to get a phrase from list
