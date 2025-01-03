@@ -1,0 +1,24 @@
+config:
+  aws:region: us-east-1
+  pulumi-ec2:data:
+    active: true
+    vpc_name: devopsjunc-vpc
+    vpc_cidr: 10.0.0.0/16
+    igw_name: devopsjunc-igw
+    prv_subnet_name: devopsjunc-private-subnet
+    pub_subnet_name: devopsjunc-public-subnet
+    prv_cidr: 10.0.1.0/24
+    pub_cidr: 10.0.0.0/24
+    eip_name: devopsjunc-eip
+    natgw_name: devopsjunc_ngw
+    pubrttable_name: devopsjunc_pubrttable
+    prvrttable_name: devopsjunc_prvrttable
+    pubrtasst_name: devopsjunc_pub_rt_asst
+    prvrtasst_name: devopsjunc_prv_rt_asst
+    sec_grp_name: devopsjunc_sec_grp
+    public_key: <paste your public key content here>
+    ec2_bastion_name: devopsjunc_ec2_bastion
+    ec2_bastion_type: t2.micro
+    ec2_private_name: devopsjunc_ec2_private
+    ec2_private_type: t2.micro
+  lab1:data: '{"vpc_name":"my-vpc","vpc_cidr":"10.0.0.0/16","igw_name":"my-igw","prv_subnet_name":"private-subnet","pub_subnet_name":"public-subnet","prv_cidr":"10.0.2.0/24","pub_cidr":"10.0.1.0/24","eip_name":"my-eip","natgw_name":"my-natgw","pubrttable_name":"public-rt","prvrttable_name":"private-rt","pubrtasst_name":"public-rt-assoc","prvrtasst_name":"private-rt-assoc","sec_grp_name":"my-security-group","public_key":"your-ssh-public-key","ec2_bastion_name":"bastion-host","ec2_bastion_type":"t2.micro","ec2_private_name":"private-instance","ec2_private_type":"t2.micro"}'
