@@ -11,7 +11,7 @@
         - RDS security group inbound rule is incorrectly configured with 10.10.1.0/24 instead of 10.10.2.0/24.
         - 10.10.3.0/24 subnet's NACL denies inbound on port 3306 from subnet 10.10.2.0/24
     [lab1](./lab1)
-
+    [example](https://github.com/tapanhegde26/pulumi-aws-infra-bastion-host/blob/main/__main__.py)
 ### Projec 2
 
     AWS Services used: EC2, S3, VPC
