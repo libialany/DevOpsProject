@@ -12,16 +12,7 @@ vpc = aws.ec2.Vpc(
         "Environment": "Production"
     }
 )
-private_subnet = aws.ec2.Subnet("private-subnet",
-    vpc_id=vpc.id,
-    cidr_block="10.0.2.0/24",
-    availability_zone="us-east-1a",
-)
-private_subnet_2 = aws.ec2.Subnet("private-subnet-2",
-    vpc_id=vpc.id,
-    cidr_block="10.0.3.0/24",
-    availability_zone="us-east-1b",  
-)
+
 # -----------------------------------------------------------------------------
 # 2. Crear el Internet Gateway
 # -----------------------------------------------------------------------------
@@ -39,7 +30,6 @@ igw = aws.ec2.InternetGateway(
 public_subnet = aws.ec2.Subnet(
     resource_name="myPublicSubnet",
     vpc_id=vpc.id,
-    availability_zone="us-east-1b", 
     cidr_block="10.0.1.0/24",
     map_public_ip_on_launch=True,  # Permite IP pública a las instancias
     tags={
@@ -123,48 +113,21 @@ ec2_instance = aws.ec2.Instance(
     vpc_security_group_ids=[security_group.id],
     associate_public_ip_address=True,  # Asigna IP pública
     tags={
-        "Name": "myEC2Instance"
+        "Name": "myEC2Instance",
+        "Backup": "Daily",  # Etiqueta usada en el Backup Selection
+        "Environment": "Production"
     }
 )
 ###
-db_subnet_group = aws.rds.SubnetGroup("db-subnet-group",
-    subnet_ids=[private_subnet.id, private_subnet_2.id],
-    description="Database subnet group"
-)
-# Create an RDS MySQL database instance in the private subnet
-db_instance = aws.rds.Instance("my-db-instance",
-    allocated_storage=20,
-    engine="mysql",
-    engine_version="8.0",
-    instance_class="db.t3.micro",
-    db_name="mydb",
-    username="admin789",
-    password="mysecretpassword789",  # Use secrets for sensitive data
-    skip_final_snapshot=True,
-    db_subnet_group_name=db_subnet_group.name
+# Create an S3 bucket
+my_s3_bucket = aws.s3.Bucket("my-test-s3",
+    acl="private"  # Set ACL as needed
 )
 
-# Create a security group for the RDS instance
-db_security_group = aws.ec2.SecurityGroup("db-sg",
-    vpc_id=vpc.id
-)
-
-# Allow access from the Bastion Host to the RDS instance
-# allow_bastion_to_db = aws.ec2.SecurityGroupIngress("allow-bastion-to-db",
-#     security_group_id=db_security_group.id,
-#     from_port=3306,
-#     to_port=3306,
-#     protocol="tcp",
-#     source_security_group_id=bastion_security_group.id
-# )
-allow_bastion_to_db = aws.ec2.SecurityGroupRule("allow-bastion-to-db",
-    from_port=3306,
-    protocol="tcp",
-    security_group_id=db_security_group.id,
-    to_port=3306,
-    type="ingress",
-    # source_security_group_id="string"
-    source_security_group_id=security_group.id
+s3_gateway_endpoint = aws.ec2.VpcEndpoint("s3-gateway-endpoint",
+    vpc_id=vpc.id,
+    service_name="com.amazonaws.us-east-1.s3",  # Change region as needed
+    route_table_ids=[route_table.id]
 )
 # -----------------------------------------------------------------------------
 # 12. Exports (valores útiles)
@@ -173,4 +136,17 @@ pulumi.export("vpcId", vpc.id)
 pulumi.export("publicSubnetId", public_subnet.id)
 pulumi.export("ec2InstanceId", ec2_instance.id)
 pulumi.export("ec2InstancePublicIp", ec2_instance.public_ip)
-pulumi.export('db_endpoint', db_instance.endpoint)
+pulumi.export("s3bucketName", my_s3_bucket.id)
+
+
+
+
+
+
+
+
+
+
+
+
+
