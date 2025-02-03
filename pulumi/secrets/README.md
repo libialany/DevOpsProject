@@ -46,3 +46,6 @@ Here is a list of resources that provide further explanation and context:
   vault secrets enable -path=my-secret kv #Enable and Configure Secrets Engine
   ```
 
+## Finally
+
+![output](./output.png)
