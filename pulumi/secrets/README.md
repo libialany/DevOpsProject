@@ -49,3 +49,5 @@ Here is a list of resources that provide further explanation and context:
 ## Finally
 
 ![output](./output.png)
+
+[link video](https://youtu.be/QoZ0Oc9vGVU)
