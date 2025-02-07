@@ -91,6 +91,6 @@ func main(){
 	r.HandleFunc("/books/{id}", updateBook).Methods("PUT")
 	r.HandleFunc("/books/{id}", deleteBook).Methods("DELETE")
 	
-	fmt.Printf("Starting server at port 8080\n")
+	fmt.Printf("Starting server at port 8000\n")
 	log.Fatal(http.ListenAndServe(":8000",r))
 }
