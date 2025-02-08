@@ -53,7 +53,9 @@ function UserList() {
   const [email, setEmail] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [selectedUserForEditting, setSelectedUserForEditting] = useState({});
-  const [deleteUser] = useMutation(DELETE_USER);
+  const [deleteUser] = useMutation(DELETE_USER, {
+    refetchQueries: [{ query: GET_USERS }],
+  });
   const [addUser] = useMutation(ADD_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
