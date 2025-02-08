@@ -1,3 +1,3 @@
 ## Hasura
 
-[hasura 101](./todo)
+[hasura 101-list users](./listOfUser/)

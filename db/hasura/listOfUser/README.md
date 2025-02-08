@@ -39,8 +39,8 @@ npm run dev
 
 ## explanation
 
-```
 GET 
+```
 query MyQuery {
   users {
     email
@@ -48,6 +48,24 @@ query MyQuery {
     name
   }
 }
+```
+
+POST
+
+note: for refresh the list iwe have to use the function `refetchQueries`.
+
+```
+mutation AddUser($objects: [users_insert_input!]!) {
+  insert_users(objects: $objects) {
+    affected_rows
+    returning {
+      id
+      name
+      email
+    }
+  }
+}
+```
 
 
 
