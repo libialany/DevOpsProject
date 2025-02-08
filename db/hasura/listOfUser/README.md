@@ -37,6 +37,20 @@ cp .env.EXAMPLE .env
 npm run dev
 ```
 
+## explanation
+
+```
+GET 
+query MyQuery {
+  users {
+    email
+    id
+    name
+  }
+}
+
+
+
 ### link video
 
 :)
