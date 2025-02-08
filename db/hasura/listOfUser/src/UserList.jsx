@@ -38,13 +38,22 @@ const UPDATE_USER = gql`
 }
 `;
 
+const DELETE_USER = gql`
+  mutation DeleteUser($id: Int!) {
+    delete_users_by_pk(id: $id) {
+      id
+    }
+  }
+`;
+
+
+
 function UserList() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [editingId, setEditingId] = useState(null);
   const [selectedUserForEditting, setSelectedUserForEditting] = useState({});
-
-
+  const [deleteUser] = useMutation(DELETE_USER);
   const [addUser] = useMutation(ADD_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
@@ -98,6 +107,15 @@ function UserList() {
     }
   };
 
+  const handleDelete = (id) => {
+    deleteUser({
+      variables: { id: id },
+      onCompleted: () => {
+        console.log(`User with id ${id} deleted`);
+      },
+    });
+  };
+  
   return (
     <div>
       <h1>Add User</h1>
@@ -119,6 +137,9 @@ function UserList() {
               setEmail(user.email);
               setEditingId(user.id);
             }}> Edit </button>
+          <button onClick={() => handleDelete(user.id)}>
+            Delete
+          </button>            
           </li>
         ))}
       </ul>
