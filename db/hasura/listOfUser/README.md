@@ -67,7 +67,20 @@ mutation AddUser($objects: [users_insert_input!]!) {
 }
 ```
 
+PUT
 
+```
+mutation UpdateUser($id: Int!, $set: users_set_input!) {
+  update_users(where: { id: { _eq: $id } }, _set: $set) {
+    affected_rows
+    returning {
+      id
+      name
+      email
+    }
+  }
+}
+```
 
 ### link video
 

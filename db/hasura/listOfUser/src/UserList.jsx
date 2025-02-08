@@ -25,13 +25,31 @@ const ADD_USER = gql`
 `;
 
 
+const UPDATE_USER = gql`
+  mutation UpdateUser($id: Int!, $name: String, $email: String) {
+    update_users(where: { id: { _eq:$id } }, _set:{ name:$name , email:$email }) {
+      affected_rows 
+      returning{
+        id 
+        name 
+        email  
+     }   
+   }
+}
+`;
+
 function UserList() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [selectedUserForEditting, setSelectedUserForEditting] = useState({});
+
 
   const [addUser] = useMutation(ADD_USER, {
     refetchQueries: [{ query: GET_USERS }],
   });
+  const [updateUser] = useMutation(UPDATE_USER);
+  // useMutation(UPDATE_USER, { refetchQueries: [{ query: GET_USERS }] });
 
   const { loading, error, data } = useQuery(GET_USERS);
 
@@ -39,37 +57,54 @@ function UserList() {
   if (error) return <p>Error ...</p>;
 
   const handleSubmit = async (event) => {
-
     event.preventDefault();
-
-    try {
-
-      await addUser({
-        variables:
-        {
-          objects:
-            [{
-              name,
-              email,
-            }],
-        },
-      });
-      console.log('User added successfully!');
-      setName('');
-      setEmail('');
-    } catch (error) {
-      console.error('Error adding user:', error);
+    if (editingId === null) {
+      try {
+        await addUser({
+          variables:
+          {
+            objects:
+              [{
+                name,
+                email,
+              }],
+          },
+        });
+        console.log('User added successfully!');
+        setName('');
+        setEmail('');
+      } catch (error) {
+        console.error('Error adding user:', error);
+      }
+    } else {
+      try {
+        await updateUser({
+          variables:
+          {
+            id: selectedUserForEditting.id,
+            name: selectedUserForEditting.name,
+            email: selectedUserForEditting.email,
+          },
+        });
+        // console.log(selectedUserForEditting.email, selectedUserForEditting.name, selectedUserForEditting.id);
+        console.log('Existing User Updated');
+        setName('');
+        setEmail('');
+        setSelectedUserForEditting({});
+        setEditingId(null);
+      } catch (error) {
+        console.error('Error Updating User:', error);
+      }
     }
   };
-
 
   return (
     <div>
       <h1>Add User</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name" />
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <button type="submit">Add User</button>
+        <input type="text" value={selectedUserForEditting.name || ''} onChange={(e) => setSelectedUserForEditting({ ...selectedUserForEditting, name: e.target.value }) || setName(e.target.value)} placeholder="Name" />
+        <input type="email" value={selectedUserForEditting.email || ''} onChange={(e) => setSelectedUserForEditting({ ...selectedUserForEditting, email: e.target.value }) || setEmail(e.target.value)} placeholder="Email" />
+        <button type="submit">{editingId ? 'Update' : 'Add'} User</button>
       </form>
       <h1>Users</h1>
       <ul>
@@ -78,6 +113,12 @@ function UserList() {
             Name: {user.name}
             <br />
             Email: {user.email}
+            <button onClick={() => {
+              setSelectedUserForEditting(user);
+              setName(user.name);
+              setEmail(user.email);
+              setEditingId(user.id);
+            }}> Edit </button>
           </li>
         ))}
       </ul>
