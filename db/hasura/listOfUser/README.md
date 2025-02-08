@@ -2,18 +2,17 @@
 Hasura is an open-source GraphQL engine that simplifies the process of building robust, scalable, and secure applications by providing an instant GraphQL API on top of new or existing databases. It supports various databases such as PostgreSQL, SQL Server, MySQL, and Oracle.
 
 ## Key Features
+
 - Instant Real-time GraphQL: Automatically generates a real-time GraphQL API from a database schema without requiring backend code.
-- Role-Based Access Control: Offers fine-grained access control through roles and permissions.
-- High Performance: Optimizes query execution by batching calls to prevent performance issues like the n+1 problem.
-- Unified Data Access Layer: Federates data from multiple sources into a single GraphQL endpoint.
 - Extensibility: Allows integration of custom business logic through Actions, Remote Schemas, and Event Triggers.
 
 ## Architecture
+
 Hasura's architecture enables developers to create a unified GraphQL API over existing databases and REST APIs. It supports Apollo Federation for composing unified APIs from multiple data sources.
 
-## Hand on
+## Hands-On
 
-i create a simple user app(CRUD application).
+I created a simple user application (CRUD application).
 
 ### Set up
 
