@@ -112,4 +112,4 @@ mutation DeleteUser($id: Int!) {
 
 ## Link video
 
-:)
+[video explanation](https://www.youtube.com/watch?v=OybK6UREdxg)
