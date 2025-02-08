@@ -59,7 +59,7 @@ npm run dev
 GET 
 
 ```
-query MyQuery {
+query GetUsers {
   users {
     email
     id
