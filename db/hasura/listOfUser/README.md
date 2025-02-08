@@ -82,6 +82,16 @@ mutation UpdateUser($id: Int!, $set: users_set_input!) {
 }
 ```
 
+DELETE
+
+```
+mutation DeleteUser($id: Int!) {
+    delete_users_by_pk(id: $id) {
+      id
+    }
+  }
+```
+
 ### link video
 
 :)
