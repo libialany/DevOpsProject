@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
-import UserList from './UserList';
+import UserDirectory from './components/UserDirectory';
+import Hero from './components/Header';
 const client = new ApolloClient({
   link: new HttpLink({
     uri: import.meta.env.VITE_HASURA_GRAPHQL_ENDPOINT,
@@ -13,9 +14,12 @@ const client = new ApolloClient({
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      <UserList />
-    </ApolloProvider>
+    <div className="wrapper">
+      <ApolloProvider client={client}>
+        <Hero />
+        <UserDirectory />
+      </ApolloProvider>
+    </div>
   );
 }
 
