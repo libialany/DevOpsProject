@@ -1,6 +1,6 @@
 # Net Troubleshooting
 
-tool for detecting network connectivity issues and troubleshooting network problems
+Tool for detecting network connectivity issues and troubleshooting network problems
 
 ## Installation
 
