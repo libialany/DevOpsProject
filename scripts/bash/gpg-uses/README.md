@@ -12,7 +12,7 @@ Apart from that, encryption can be applied to E-mails.
 
 ```
 gpg --generate-key 
-gpg --list-keyspu
+gpg --list-keys
 gpg --export -a demo123@example.com > public-key.asc
 ```
 
