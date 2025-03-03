@@ -29,3 +29,5 @@ sh gpg-encrypt.sh -e demo123@example.com -f message.txt -pk public-key.asc
 ```bash
 sh gpg-decrypt.sh -f message.txt.asc
 ```
+
+[**github original code**](https://github.com/moabukar/gpg-scripts)
