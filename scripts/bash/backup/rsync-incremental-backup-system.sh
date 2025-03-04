@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# source code: https://github.com/pedroetb/rsync-incremental-backup
 # v1.2.4
 
 # Configuration variables (change as you wish)
