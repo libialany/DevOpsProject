@@ -1,0 +1,21 @@
+---
+- name: Download and execute a script from GitHub
+  hosts: raspberrypi
+  become: yes
+  tasks:
+    - name: Include script variables
+      include_vars: vars.yml
+
+    - name: Download the script from GitHub
+      ansible.builtin.get_url:
+        url: "{{ script_url }}"
+        dest: /tmp/rsync-incremental-backup-system.sh
+        mode: '0755'
+
+    - name: Execute the downloaded script
+      ansible.builtin.command: /tmp
+      register: log_execution
+
+    - name: Display the script output
+      ansible.builtin.debug:
+        var: log_execution.stdout
