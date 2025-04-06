@@ -1,0 +1,20 @@
+services:
+
+  # App Service
+  app:
+    # Configuration for building the docker image for the service
+    build:
+      context: . # Use an image built from the specified dockerfile in the current directory.
+      dockerfile: Dockerfile
+    restart: always
+    labels:
+      - traefik.http.routers.nextjs-tools.rule=Host(`tools.mlibia.xyz`)
+      - traefik.http.services.nextjs-tools.loadbalancer.server.port=3009
+      - traefik.enable=true
+    networks:
+      - traefik_apps
+# Networks to be created to facilitate communication between containers
+networks:
+  traefik_apps:
+    external: true
+ 
