@@ -1,0 +1,25 @@
+trigger: none
+
+pool:
+  name: default
+
+steps:
+- script: python count_de.py $(th_api) $(organization) $(project) > output.txt  
+  displayName: 'Count deployments on Friday'
+
+- powershell: |
+    $output = Get-Content -Path output.txt -Raw
+    $readmePath = "README.md"
+    Set-Content -Path $readmePath -Value $output -NoNewline
+    
+- script: |
+    git config --global user.email $(pro_mail)
+    git config --global user.name $(pro_name)
+    git remote set-url origin https://$(GIT_PAT)@dev.azure.com/$(organization)/$(project)/_git/demo-task01
+    git add README.md
+    git commit -m "README update [skip ci]"
+    git push origin HEAD:$(Build.SourceBranchName)
+  displayName: 'Push with PAT'
+  condition: succeeded()
+  env:
+    GIT_PAT: $(git_pat)
