@@ -1,4 +1,5 @@
-#how o setup the plugin: https://developer.hashicorp.com/vault/docs/secrets/databases/postgresql
+# how o setup the plugin: https://developer.hashicorp.com/vault/docs/secrets/databases/postgresql
+# video explanation: https://youtu.be/yUxvbJOtSTE?si=Q2H6X4nFSQtHcX_A
 import hvac
 import requests
 import os
