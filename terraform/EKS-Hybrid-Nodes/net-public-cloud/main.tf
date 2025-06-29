@@ -24,7 +24,74 @@ provider "aws" {
     }
   }
   
-  # 3. Internet Gateway
+  # 3. Private Subnets
+  resource "aws_subnet" "demo_pub_private_1" {
+    vpc_id            = aws_vpc.demo_pub_main.id
+    cidr_block        = "172.0.2.0/24"
+    availability_zone = "${var.aws_region}a"
+
+    tags = {
+      Name = "DemoPubPrivateSubnet1"
+    }
+  }
+
+  resource "aws_subnet" "demo_pub_private_2" {
+    vpc_id            = aws_vpc.demo_pub_main.id
+    cidr_block        = "172.0.3.0/24"
+    availability_zone = "${var.aws_region}c"
+
+    tags = {
+      Name = "DemoPubPrivateSubnet2"
+    }
+  }
+
+  # 4. NAT Gateway for Private Subnets
+  resource "aws_eip" "demo_pub_nat_eip" {
+    domain = "vpc"
+    depends_on = [aws_internet_gateway.demo_pub_igw]
+
+    tags = {
+      Name = "DemoPubNATEIP"
+    }
+  }
+
+  resource "aws_nat_gateway" "demo_pub_nat" {
+    allocation_id = aws_eip.demo_pub_nat_eip.id
+    subnet_id     = aws_subnet.demo_pub_public.id
+
+    tags = {
+      Name = "DemoPubMainNAT"
+    }
+
+    depends_on = [aws_internet_gateway.demo_pub_igw]
+  }
+
+  # 5. Private Route Table
+  resource "aws_route_table" "demo_pub_private" {
+    vpc_id = aws_vpc.demo_pub_main.id
+
+    route {
+      cidr_block     = "0.0.0.0/0"
+      nat_gateway_id = aws_nat_gateway.demo_pub_nat.id
+    }
+
+    tags = {
+      Name = "DemoPubPrivateRouteTable"
+    }
+  }
+
+  # 6. Private Route Table Associations
+  resource "aws_route_table_association" "demo_pub_private_1_assoc" {
+    subnet_id      = aws_subnet.demo_pub_private_1.id
+    route_table_id = aws_route_table.demo_pub_private.id
+  }
+
+  resource "aws_route_table_association" "demo_pub_private_2_assoc" {
+    subnet_id      = aws_subnet.demo_pub_private_2.id
+    route_table_id = aws_route_table.demo_pub_private.id
+  }
+
+  # 7. Internet Gateway
   resource "aws_internet_gateway" "demo_pub_igw" {
     vpc_id = aws_vpc.demo_pub_main.id
   
@@ -82,7 +149,7 @@ resource "aws_vpn_gateway" "demo_pub_vgw" {
 
 resource "aws_customer_gateway" "demo_pub_cgw" {
   bgp_asn    = 65000
-  ip_address = "3.95.41.37"
+  ip_address = var.public_ec2_ip
   type       = "ipsec.1"
 
   tags = {
