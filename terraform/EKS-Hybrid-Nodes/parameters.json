@@ -1,7 +1,0 @@
-{
-    "Parameters": {
-        "RoleName": "TestAmazonEKSHybridNodesRole",
-        "SSMDeregisterConditionTagKey": "EKSClusterARN",
-        "SSMDeregisterConditionTagValue": "arn:aws:eks:us-east-1:as:cluster/as"
-    }
-}
