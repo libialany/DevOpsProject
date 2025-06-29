@@ -55,7 +55,7 @@ module "eks" {
   }
 
   vpc_id     = var.vpc_pub
-  subnet_ids = [<add manually the 2 subnets ids>]
+  subnet_ids = var.ids_subnets
 
   cluster_remote_network_config = {
     remote_node_networks = {
