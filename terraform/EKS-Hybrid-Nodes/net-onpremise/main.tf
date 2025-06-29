@@ -108,6 +108,17 @@ resource "aws_instance" "demo_onprem_web" {
   associate_public_ip_address = true
   key_name                    = var.key_name
 
+  user_data = <<-EOF
+              #!/bin/bash
+              # Update package list and install StrongSwan
+              sudo apt update -y && sudo apt install strongswan -y
+              curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 && chmod 700 get_helm.sh && ./get_helm.sh
+
+              # Additional setup can be added here
+              echo "StrongSwan, helm and kubectl installation completed"
+
+              EOF
+
   tags = {
     Name = "Demo-HN-onprem-PublicEC2"
   }
