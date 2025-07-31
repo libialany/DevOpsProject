@@ -2,7 +2,7 @@ name: Manual Trigger Workflow with loglevel & tags
 on:
   workflow_dispatch:
     branches:
-      - main
+      - notsubcribers
 jobs:
   print-tag:
     runs-on: ubuntu-latest
