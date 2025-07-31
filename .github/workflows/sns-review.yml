@@ -1,0 +1,11 @@
+name: Manual Trigger Workflow with loglevel & tags
+#get log & tags information
+on:
+  workflow_dispatch:
+
+jobs:
+  print-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the purpose of run
+        run: echo  ${{ inputs.tags }} purpose
