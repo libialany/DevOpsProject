@@ -1,8 +1,8 @@
 name: Manual Trigger Workflow with loglevel & tags
-#get log & tags information
 on:
   workflow_dispatch:
-
+    branches:
+      - main
 jobs:
   print-tag:
     runs-on: ubuntu-latest
