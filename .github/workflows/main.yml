@@ -4,8 +4,14 @@ on:
     branches:
       - notsubcribers
 jobs:
-  print-tag:
+  sns-review:
     runs-on: ubuntu-latest
     steps:
-      - name: Print the purpose of run
-        run: echo  "hi there"
+      - name: Starting the scanning
+        run: echo "Start the scanning"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+      - run: pip install boto3 && python main.py
