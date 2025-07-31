@@ -1,6 +1,6 @@
 name: Manual Trigger Workflow with loglevel & tags
 on:
-  workflow_dispatch:
+  push:
     branches:
       - notsubcribers
 jobs:
