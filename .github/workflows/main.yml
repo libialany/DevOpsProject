@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: '3.13'
           cache: 'pip'
-      - run: pip install boto3 && python main.py
+      - run: python main.py
