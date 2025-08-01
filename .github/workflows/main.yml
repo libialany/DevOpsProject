@@ -6,9 +6,18 @@ on:
 jobs:
   sns-review:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Starting the scanning
         run: echo "Start the scanning"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4.2.1
+        with:
+          audience: ${{ secrets.AWS_AUDIENCE }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
       - name: Run the main script
