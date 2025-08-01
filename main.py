@@ -8,7 +8,8 @@ def main():
 
     # List topics
     paginator = sns_client.get_paginator('list_topics')
-    try:    
+    try:
+        print("Paginator+++++++++++++++++++++++++++++++==============")
         print(paginator)
     except Exception as e:
         print(f"Error describing topics: {e}")
