@@ -4,7 +4,7 @@ import sys
 def main():
     sns_client = boto3.client('sns')
 
-    # subscription_counts_by_topic_arn = {}
+    subscription_counts_by_topic_arn = {}
 
     # List topics
     paginator = sns_client.get_paginator('list_topics')
