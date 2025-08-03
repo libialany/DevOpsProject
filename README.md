@@ -12,3 +12,6 @@
 <img width="1285" height="505" alt="image" src="https://github.com/user-attachments/assets/ad46d662-8e9e-49f0-9781-0855ad99f5e0" />
 
 
+```
+curl -X POST http://localhost:5044/tunnel   -H "Content-Type: application/x-sentry-envelope"   --data-binary "@test.txt"
+```
