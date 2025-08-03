@@ -1,0 +1,9 @@
+@model IEnumerable<articles.Models.Article>
+
+<h2>Todo List</h2>
+<ul>
+@foreach (var todo in Model)
+{
+    <li>@todo.Title</li>
+}
+</ul>

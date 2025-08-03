@@ -1,4 +1,8 @@
-# DevOps scripts
+## Error Tracking Tool
 
-I've trying to save my scripts i used for most of my projects
+#### Useful links
 
+[tunnels](https://docs.sentry.io/platforms/javascript/troubleshooting/#third-party-promise-libraries)
+[est up tunnel](https://github.com/getsentry/sentry-dotnet/issues/4377)
+[dotnet setup](https://docs.sentry.io/platforms/dotnet/guides/aspnetcore/)
+[issues](https://github.com/getsentry/sentry-dotnet/issues/3135)
