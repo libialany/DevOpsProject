@@ -1,22 +1,34 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
-
-output "cluster_endpoint" {
-  description = "Endpoint for EKS control plane"
-  value       = module.eks.cluster_endpoint
+output "master_instance_id" {
+  value = module.master.id
 }
 
-output "cluster_security_group_id" {
-  description = "Security group ids attached to the cluster control plane"
-  value       = module.eks.cluster_security_group_id
+output "worker_instance_ids" {
+  value = module.workers.id
 }
 
-output "region" {
-  description = "AWS region"
-  value       = var.region
+output "master_public_ip" {
+  value = module.master.public_ip
 }
 
-output "cluster_name" {
-  description = "Kubernetes Cluster Name"
-  value       = module.eks.cluster_name
+output "worker_public_ips" {
+  value = module.workers.public_ip
+}
+
+output "vpc_id" {
+  value = aws_vpc.k8s_vpc.id
+}
+
+output "subnet_id_1" {
+  value = aws_subnet.public_subnet_1.id
+}
+output "subnet_id_2" {
+  value = aws_subnet.public_subnet_2.id
+}
+
+output "master_security_group_id" {
+  value = aws_security_group.master_sg.id
+}
+
+output "worker_security_group_id" {
+  value = aws_security_group.worker_sg.id
 }
