@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-processor
+  labels:
+    app: order-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-processor
+  template:
+    metadata:
+      labels:
+        app: order-processor
+    spec:
+      containers:
+      - name: processor
+        image: order-processor:latest
+        imagePullPolicy: Never
+        env:
+        - name: QUEUE_URL
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_SQS_QUEUE_URL
+        - name: AWS_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_REGION
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credentials
+              key: AWS_ACCESS_KEY_ID  
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:  
+            secretKeyRef:
+              name: aws-credentials 
+              key: AWS_SECRET_ACCESS_KEY
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
