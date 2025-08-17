@@ -1,0 +1,7 @@
+name: mlflow-examples-hello_world
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip:
+    - mlflow>=1.17.0
