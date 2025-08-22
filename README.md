@@ -1,0 +1,3 @@
+- PROJECT3 - zenml project with a local stack
+- PROJECT4 - set mlflow in AWS deploy a small project
+- PROJECT5 - set airflow and sa small project
