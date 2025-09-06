@@ -1,3 +1,5 @@
 - PROJECT3 - zenml project with a local stack
 - PROJECT4 - set mlflow in AWS deploy a small project
 - PROJECT5 - set airflow and sa small project
+- PROJECT6 - analize dataset employees
+- PROJECT7 - analize and join dataset cars
