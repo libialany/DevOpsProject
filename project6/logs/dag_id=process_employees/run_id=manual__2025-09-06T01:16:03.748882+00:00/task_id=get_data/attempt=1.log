@@ -1,0 +1,12 @@
+{"timestamp":"2025-09-06T01:16:09.218353","level":"info","event":"DAG bundles loaded: dags-folder, example_dags","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager"}
+{"timestamp":"2025-09-06T01:16:09.219172","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/process_employees.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-06T01:16:09.281142Z","level":"info","event":"Task instance is in running state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.281333Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.QUEUED","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.281486Z","level":"info","event":"Current task name:get_data","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.281584Z","level":"info","event":"Dag name:process_employees","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.641850","level":"warning","event":"/home/airflow/.local/lib/python3.12/site-packages/airflow/models/connection.py:471: DeprecationWarning: Using Connection.get_connection_from_secrets from `airflow.models` is deprecated.Please use `get` on Connection from sdk(`airflow.sdk.Connection`) instead\n  warnings.warn(\n","logger":"py.warnings"}
+{"timestamp":"2025-09-06T01:16:09.651553","level":"info","event":"Connection Retrieved 'tutorial_pg_conn'","logger":"airflow.hooks.base"}
+{"timestamp":"2025-09-06T01:16:09.665948","level":"info","event":"Done. Returned value was: None","logger":"airflow.task.operators.airflow.providers.standard.decorators.python._PythonDecoratedOperator"}
+{"timestamp":"2025-09-06T01:16:09.686632Z","level":"info","event":"Task instance in success state","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.686800Z","level":"info","event":" Previous state of the Task instance: TaskInstanceState.RUNNING","chan":"stdout","logger":"task"}
+{"timestamp":"2025-09-06T01:16:09.687504Z","level":"info","event":"Task operator:<Task(_PythonDecoratedOperator): get_data>","chan":"stdout","logger":"task"}
