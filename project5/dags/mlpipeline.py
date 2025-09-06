@@ -20,7 +20,7 @@ def evaluate_model():
 with DAG(
     'ml_pipeline',
     start_date=datetime(2024,1,1),
-    schedule_interval='@weekly'
+    schedule_interval=None
 ) as dag:
     
     ##Define the task
