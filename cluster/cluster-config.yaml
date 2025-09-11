@@ -1,0 +1,26 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: my-multi-nodegroup-cluster
+  region: us-east-1
+  version: "1.32"
+
+managedNodeGroups:
+  - name: general-purpose-ng
+    instanceType: t3.medium
+    desiredCapacity: 2
+    minSize: 1
+    maxSize: 2
+    labels: {role: "general"}
+    tags:
+      nodegroup-type: "general-purpose"
+
+  - name: high-cpu-ng
+    instanceType: t3.medium
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 2
+    labels: {role: "high-cpu"}
+    tags:
+      nodegroup-type: "general-cpu"
