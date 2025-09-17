@@ -1,4 +1,8 @@
-# DevOps  Projects
+## Execute
 
-this is still refactoring ......
+```
+terraform init
+terraform plan
+terraform apply
+```
 
