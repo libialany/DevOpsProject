@@ -2,14 +2,6 @@
 
 By using OpenID Connect (OIDC), your GitHub workflow can request **short-lived credentials directly from AWS STS** — no static secrets, no key rotation headaches, and significantly reduced blast radius.
 
-### 🚨 Why This Matters (Security First)
-
-When you use static AWS credentials:
-
-* ❌ Long-lived access keys can leak
-* ❌ Secrets must be rotated manually
-* ❌ Compromised runners = exposed credentials
-
 With OIDC:
 
 * ✅ No stored AWS access keys in GitHub
@@ -17,7 +9,9 @@ With OIDC:
 * ✅ Fine-grained IAM trust policies
 * ✅ Branch and repo restrictions enforced in AWS
 
+step: 
 
-
-#DevOps #CloudSecurity #AWS #GitHubActions #CICD
-
+```
+wget https://gist.github.com/libialany/f8a84c3bc22bae78d636527e7b6d7c40
+bash GH-2-AWS_OIDC.sh GhRole RepoX BranchX
+```
