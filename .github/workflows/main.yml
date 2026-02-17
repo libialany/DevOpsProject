@@ -2,9 +2,7 @@ name: Dockerfile Security Scan
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: [ "feat/scanner_docker" ]
 
 jobs:
   build:
