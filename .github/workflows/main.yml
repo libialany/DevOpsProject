@@ -1,29 +1,25 @@
-name: Get S3 Bucket Size
+name: Dockerfile Security Scan
 
 on:
   push:
-    branches:
-      - main
-
-permissions:
-  id-token: write
-  contents: read
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
-  get-s3-size:
+  build:
+    name: Security Scan
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
         with:
-          role-to-assume: ${{ secrets.AWS_S3_ROLE_ARN }}
-          aws-region: ${{ secrets.AWS_REGION }}
-          role-session-name: GitHubActionsSession
-
-      - name: Get S3 Bucket Size
-        run: |
-          echo "Listing objects in bucket:"
-          aws s3 ls s3://${{ secrets.AWS_S3_BUCKET_NAME }} --recursive --human-readable --summarize
+          scan-type: 'config'
+          hide-progress: false
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'HIGH,CRITICAL'
