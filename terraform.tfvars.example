@@ -1,5 +1,0 @@
-# terraform.tfvars  –  fill in your own values
-
-aws_region   = "us-east-1"
-project_name = "gallery-app"
-bucket_name  = "my-gallery-images-20240101"   # must be globally unique
