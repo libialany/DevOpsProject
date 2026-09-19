@@ -56,13 +56,13 @@ jobs:
       - name: Build Docker Image
         run: |  
           docker build \
-          -t ${{ secrets.DOCKER_USERNAME }}/demo:${{ steps.version.outputs.version }} \
-          -t ${{ secrets.DOCKER_USERNAME }}/demo:latest \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/demo:${{ steps.version.outputs.version }} \
+          -t ${{ secrets.DOCKERHUB_USERNAME }}/demo:latest \
           .
       - name: Push Docker Image
         run: | 
           docker push \
-          ${{ secrets.DOCKER_USERNAME }}/demo:${{ steps.version.outputs.version }}
+          ${{ secrets.DOCKERHUB_USERNAME }}/demo:${{ steps.version.outputs.version }}
 
           docker push \
-          ${{ secrets.DOCKER_USERNAME }}/demo:latest
+          ${{ secrets.DOCKERHUB_USERNAME }}/demo:latest
