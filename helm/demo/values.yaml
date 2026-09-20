@@ -1,7 +1,7 @@
 replicaCount: 2
 image:
   repository: demo
-  tag: v1
+  tag: v2
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
