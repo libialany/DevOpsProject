@@ -1,6 +1,6 @@
 variable "name" {
-    description = ""
-    type = string
+  description = ""
+  type        = string
 }
 
 variable "cidr_block" {
