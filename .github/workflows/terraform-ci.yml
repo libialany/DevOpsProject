@@ -1,4 +1,4 @@
-name: Terraform ,CRITICAL"
+name: Terraform CI
 on: 
   pull_request: 
     paths: 
@@ -6,8 +6,8 @@ on:
       - ".github/workflows/terraform-ci.yml"
   push:
     branches: [interview-p4]
-    paths: 
-      - "modules/**"
+    # paths: 
+    #   - "modules/**"
 jobs: 
   fmt-validate: 
     name: "fmt-validate"
