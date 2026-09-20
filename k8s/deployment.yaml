@@ -17,4 +17,4 @@ spec:
           image: demo:local
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
