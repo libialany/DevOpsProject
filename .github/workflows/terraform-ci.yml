@@ -1,0 +1,32 @@
+name: Terraform ,CRITICAL"
+on: 
+  pull_request: 
+    paths: 
+      - "1"
+  push:
+    branches: [main]
+    paths: 
+      - "1"
+jobs: 
+  fmt-validate: 
+    name: "fmt-validate"
+    runs-on: "ubuntu-latest"
+    steps: 
+      - name: "checkout"
+        uses: actions/checkout@v4
+      
+      - name: "Set up Terraform"
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.5"
+      
+      - name: "tf format"
+        run: terraform fmt -check -recursive -diff modules/
+
+      - name: "tf init"
+        run:  terraform init -backend=false
+        working-directory: modules/vpc
+
+      - name: "tf validate"
+        run: terraform validate
+        working-directory: modules/vpc

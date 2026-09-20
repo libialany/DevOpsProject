@@ -1,8 +1,0 @@
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-app/__pycache__
-tests/__pycache__
-.pytest_cache
-.ruff_cache
