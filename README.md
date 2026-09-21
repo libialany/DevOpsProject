@@ -1,46 +1,116 @@
-
-Prometheus:
+## AWS 
 
 ```
-kubectl get svc
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+tt init
+tt plan --profile p1
+tt apply --profile p1
+```
 
+### Improvements
 
+create a module for the creation
+
+## K8s
+
+```
+
+helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
 helm repo update
 
-kubectl create namespace monitoring
+helm install csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver \
+  --namespace kube-system \
+  --set syncSecret.enabled=true
 
-helm install monitoring \
-prometheus-community/kube-prometheus-stack \
---namespace monitoring
+helm repo add hashicorp https://helm.releases.hashicorp.com
+helm repo update
 
-kubectl get pods -n monitoring
-```
+helm install vault hashicorp/vault \
+  --namespace vault --create-namespace \
+  --set "server.dev.enabled=true" \
+  --set "injector.enabled=false"
 
-Check these resources:
+kubectl get pods -n kube-system -l app=secrets-store-csi-driver | kubectl get pods -n vault
 
- - prometheus
- - grafana
- - alertmanager
- - node-exporter
- - kube-state-metrics
- - prometheus-operator
-
-Service Monitoring:
-
-[integrate prometheus index](./k8s/app-servicemonitor.yaml)
-
-Check the services: 
+helm install vault-csi-provider hashicorp/vault-csi-provider \
+  --namespace vault
 
 ```
- kubectl get svc -n monitoring
- kubectl port-forward -n monitoring svc/prometheus-operated 9090:9090
- kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
- kubectl get secret \
- -n monitoring \
- monitoring-grafana \
- -o jsonpath="{.data.admin-password}" | base64 --decode
+
+
+## set up inside container
+
+```
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault login root
+
+vault auth enable kubernetes
+
+vault write auth/kubernetes/config \
+  kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+
+vault policy write fastapi-app-policy - <<EOF
+path "secret/data/fastapi-app" {
+  capabilities = ["read"]
+}
+EOF
+
+vault write auth/kubernetes/role/fastapi-app \
+  bound_service_account_names=fastapi-app-sa \
+  bound_service_account_namespaces=default \
+  policies=fastapi-app-policy \
+  ttl=24h
+
+exit
+
+export VAULT_ADDR='http://127.0.0.1:8200'
+vault login root
+
+vault secrets enable -path=secret kv-v2
+
+vault kv put secret/fastapi-app db_password="s3cr3t-p@ss" api_key="abc123"
+
+exit
+
 ```
 
+## how to applly it
 
-do not install prometheus and kubesprade  both
+```
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fastapi-app-sa
+  namespace: default
+---
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: fastapi-app-vault-secrets
+  namespace: default
+spec:
+  provider: vault
+  parameters:
+    vaultAddress: "http://vault.vault:8200"
+    roleName: "fastapi-app"
+    objects: |
+      - objectName: "db_password"
+        secretPath: "secret/data/fastapi-app"
+        secretKey: "db_password"
+      - objectName: "api_key"
+        secretPath: "secret/data/fastapi-app"
+        secretKey: "api_key"
+  secretObjects:
+    - secretName: fastapi-app-secret
+      type: Opaque
+      data:
+        - objectName: db_password
+          key: db_password
+        - objectName: api_key
+          key: api_key
+```
+
+## how use it
+
+```
+kubectl exec -it <fastapi-pod-name> -- env | grep -E "db_password|api_key"
+```
