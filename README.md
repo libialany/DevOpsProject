@@ -41,3 +41,6 @@ Check the services:
  monitoring-grafana \
  -o jsonpath="{.data.admin-password}" | base64 --decode
 ```
+
+
+do not install prometheus and kubesprade  both

@@ -2,10 +2,8 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: demo
-  namespace: monitoring
-
   labels:
-    release: monitoring
+    release: kube-prometheus-stack
 
 spec:
   selector:
