@@ -28,3 +28,7 @@ kubectl get service db -n demo2 -o jsonpath='{.spec.selector}'
 echo
 kubectl get pods  -n demo2  --show-labels
 ```
+
+#### more feaure
+
+kubernetes networking policies
