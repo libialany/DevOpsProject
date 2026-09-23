@@ -1,0 +1,48 @@
+name: db start
+on: 
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: db-scheduler
+  cancel-in-progress: false
+
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: AWS OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_ROLE }}
+          aws-region: us-east-1
+      
+      - name: start 
+        run: | 
+          set -euo pipefail
+
+          STATUS=$(aws rds describe-db-instances \
+            --db-instance-identifier demo-db \
+            --query 'DBInstances[0].DBInstanceStatus' \
+            --output text)
+
+          if [ "$STATUS" = "stopped" ]; then
+            echo "Already stopped — nothing to do."
+            exit 0
+          fi
+
+          if [ "$STATUS" != "available" ]; then
+            echo "Instance is '$STATUS', refusing to act. Exiting."
+            exit 1
+          fi
+
+          aws rds start-db-instance --db-instance-identifier $${{ secrets.DB_NAME }}
+
+          aws rds wait db-instance-available --db-instance-identifier $${{ secrets.DB_NAME }}
+
+          
