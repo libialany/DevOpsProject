@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-canary
+      track: canary
+  template:
+    metadata:
+      labels:
+        app: app-canary
+        track: canary
+    spec:
+      containers:
+        - name: app-canary
+          image: gcr.io/kuar-demo/kuard-amd64:1

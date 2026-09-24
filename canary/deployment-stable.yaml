@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-stable
+spec: 
+  replicas: 9
+  selector:
+    matchLabels: 
+      app: app
+      track: stable
+  template:
+    metadata:
+      labels: 
+        app: app
+        track: stable
+    spec:
+      containers:
+        - name: app
+          image: gcr.io/kuar-demo/kuard-amd64:1
