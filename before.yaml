@@ -1,0 +1,13 @@
+name: CI simple
+on: [push]
+jobs: 
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm CI
+
+      - name: run test suite 
+        run: npm test

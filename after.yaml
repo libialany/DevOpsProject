@@ -1,0 +1,26 @@
+name: CI
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    # realistic timeout
+    timeout-minutes: 15
+    strategy:
+      # parrallelize split the suite into shards
+      matrix: 
+        shard: [1,2,3,4]
+      fail-fast: false
+      # one shard failing shouldn't hide the others
+    env:
+      TEST_SEED: 42
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 5 
+          max_attempts: 3
+          command: npm CI
+      - name: run test shard
+        run: npx test --shard=${{ matrix.shard }}/4 --seed=$TEST_SEED
