@@ -10,11 +10,16 @@ spec:
   template:
     metadata:
       labels:
-        app: demo 
+        app: demo
     spec:
       containers:
         - name: demo
-          image: demo:local
-          imagePullPolicy: IfNotPresent
-          ports:
-            - containerPort: 8080
+          image: busybox:1.36
+          command: ["/bin/sh", "-c", "while true; do sleep 10; done;"]
+          resources:
+            limits:
+              memory: 10Mi
+              cpu: 20m
+            requests:
+              memory: 1Mi
+              cpu: 1m
