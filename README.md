@@ -11,3 +11,5 @@ k describe deployment demo | grep Liveness:
 k describe deployment demo | grep Readiness:
 k top pods
 ```
+
+<img width="603" height="229" alt="image" src="https://github.com/user-attachments/assets/27fa3bc6-74f3-46ea-b227-fddbed9d78ea" />
