@@ -13,3 +13,6 @@ k top pods
 ```
 
 <img width="603" height="229" alt="image" src="https://github.com/user-attachments/assets/27fa3bc6-74f3-46ea-b227-fddbed9d78ea" />
+
+
+<img width="712" height="235" alt="image" src="https://github.com/user-attachments/assets/0b01ab33-d783-467c-859c-d683a760f025" />
