@@ -45,7 +45,7 @@ Check the services:
 
 Question? do not install prometheus operator or kube-prometheus-stack  both
 
-
+How Do know what is happening in my systems, and why is it happening?
 
 
 <img width="859" height="427" alt="image" src="https://github.com/user-attachments/assets/9e13c7e1-a261-487b-b6d6-53a73ff71269" />
