@@ -6,13 +6,15 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      app: app-green
+      app: myapp
   template:
     metadata:
       labels: 
-        app: app-green
+        app: myapp
         version: green
     spec:
       containers:
-        - name: app-green
+        - name: myapp
           image: gcr.io/kuar-demo/kuard-amd64:1
+          ports:
+            - containerPort: 8080

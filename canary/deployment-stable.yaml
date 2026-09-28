@@ -17,3 +17,5 @@ spec:
       containers:
         - name: app
           image: gcr.io/kuar-demo/kuard-amd64:1
+          ports:
+            - containerPort: 8080
