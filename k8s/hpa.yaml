@@ -1,0 +1,31 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: busybox-web-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo
+  minReplicas: 1
+  maxReplicas: 6
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
+  behavior:
+    scaleUp: # HPA can add at most 2 pods per 15-second period under this policy.
+      stabilizationWindowSeconds: 0 #sconds not wait to stabilize a scale-up decision.      
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 15
+    scaleDown: # 1 pod to be removed per 30-second period
+      stabilizationWindowSeconds: 30 # the stabilization period rather than immediately reacting to every temporary drop.
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 30

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webpage
+data: 
+  index.html: |
+    <html>
+      <body>
+        <h1>BusyBox Autoscaling Demo</h1>
+        <p>Hit /cgi-bin/busy.cgi to generate CPU load.</p>
+      </body>
+    </html>
+  busy.cgi: |
+    #!/bin/sh
+    # Every request burns CPU for a bit before responding.
+    # This is what lets us drive up CPU utilization and trigger the HPA.
+    echo "Content-type: text/plain"
+    echo ""
+    i=0
+    while [ $i -lt 800000 ]; do
+      i=$((i+1))
+    done
+    echo "OK - work done"
