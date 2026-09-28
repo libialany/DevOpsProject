@@ -47,3 +47,5 @@ do not install prometheus and kubesprade  both
 
 
 <img width="859" height="427" alt="image" src="https://github.com/user-attachments/assets/9e13c7e1-a261-487b-b6d6-53a73ff71269" />
+
+<img width="1328" height="677" alt="image" src="https://github.com/user-attachments/assets/487bff4a-aa72-43cb-968f-deffad960ce4" />
