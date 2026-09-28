@@ -49,10 +49,20 @@ Question? do not install prometheus operator or kube-prometheus-stack  both
 
 ## Problem
 
-we need to know what is hapenning in the system and why is it happening. for the 3 kubernetes and more tahn 10 pods and microservices with databases. Prometheus and grafana help you detect and investigate the problem before or while users are affected. Proemehtus collects and stores metrics. Grafana visulizes those metrics.
+we need to know what is hapenning in the system and why is it happening. for the 3 kubernetes and more tahn 10 pods and microservices with databases. Prometheus and grafana help you detect and investigate the problem before or while users are affected. Proemetheus collects and stores metrics. Grafana visulizes those metrics.
 
 ## Solution
 
 <img width="859" height="427" alt="image" src="https://github.com/user-attachments/assets/9e13c7e1-a261-487b-b6d6-53a73ff71269" />
 
 <img width="1328" height="677" alt="image" src="https://github.com/user-attachments/assets/487bff4a-aa72-43cb-968f-deffad960ce4" />
+
+test the [](./k8s/node-alert.yaml)
+
+```
+k run -n test cpu-burn --image=busybox:1.36 --restart=Never -- \
+  /bin/sh -c "while true; do :; done"
+```
+
+<img width="1206" height="614" alt="image" src="https://github.com/user-attachments/assets/f40c9c4b-49f6-4b26-ad0a-88ac756cbb34" />
+
