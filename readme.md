@@ -14,6 +14,9 @@ current replicas × current metric / desired metric  ## 2 × 140 / 70 = 4
 ```
 in the other hand vpa increase the resources allocated to a pod.
 
+<img width="1216" height="407" alt="image" src="https://github.com/user-attachments/assets/45052612-70bc-4f6c-9842-3f12e3bdbd50" />
+
+
 ## Random
 
 
