@@ -43,7 +43,9 @@ Check the services:
 ```
 
 
-do not install prometheus and kubesprade  both
+Question? do not install prometheus operator or kube-prometheus-stack  both
+
+
 
 
 <img width="859" height="427" alt="image" src="https://github.com/user-attachments/assets/9e13c7e1-a261-487b-b6d6-53a73ff71269" />
